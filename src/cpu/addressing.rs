@@ -9,6 +9,6 @@ pub enum AddressingMode {
     AbsoluteX,
     AbsoluteY,
     Indirect,
-    IndexedIndirect,
-    IndirectIndexed,
+    IndirectX,
+    IndirectY,
 }

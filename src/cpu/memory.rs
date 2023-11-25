@@ -13,6 +13,12 @@ impl CpuMemoryMapper {
     pub fn load(&self, address: u16) -> u8 {
         self.memory[address as usize]
     }
+
+    pub fn load_u16(&self, address: u16) -> u16 {
+        let low = self.load(address);
+        let high = self.load(address + 1);
+        u16::from_le_bytes([low, high])
+    }
 }
 
 impl Default for CpuMemoryMapper {

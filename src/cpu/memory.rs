@@ -19,6 +19,20 @@ impl CpuMemoryMapper {
         let high = self.load(address + 1);
         u16::from_le_bytes([low, high])
     }
+
+    pub fn load_i8(&self, address: u16) -> i8 {
+        i8::from_le_bytes([self.load(address)])
+    }
+
+    pub fn store(&mut self, address: u16, value: u8) {
+        self.memory[address as usize] = value;
+    }
+
+    pub fn store_u16(&mut self, address: u16, value: u16) {
+        let [low, high] = value.to_le_bytes();
+        self.store(address, low);
+        self.store(address + 1, high);
+    }
 }
 
 impl Default for CpuMemoryMapper {
@@ -26,3 +40,5 @@ impl Default for CpuMemoryMapper {
         Self::new()
     }
 }
+
+pub const STACK_BOTTOM: u16 = 0x0100;

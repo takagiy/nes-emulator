@@ -298,7 +298,7 @@ impl Cpu {
         self.branch_if(!self.register_p.contains(CpuStatus::CARRY), operand_address);
     }
 
-    // Branch if carry set
+    /// Branch if carry set
     fn bcs(&mut self, addressing: AddressingMode) {
         let operand_address = self.take_operand_address(addressing);
         self.branch_if(self.register_p.contains(CpuStatus::CARRY), operand_address);
@@ -772,7 +772,7 @@ impl Cpu {
     /// - ZERO: Set if the accumulator is zero.
     /// - NEGATIVE: Set if bit 7 of the accumulator is set.
     ///
-    /// see [`set_zero_and_negative_flags_by`]
+    /// see [`Cpu::set_zero_and_negative_flags_by()`]
     fn set_zero_and_negative_flags(&mut self) {
         self.set_zero_and_negative_flags_by(self.register_a);
     }
@@ -782,7 +782,7 @@ impl Cpu {
     /// - ZERO: Set if the value is zero.
     /// - NEGATIVE: Set if bit 7 of the value is set.
     ///
-    /// see [`set_zero_and_negative_flags`]
+    /// see [`Cpu::set_zero_and_negative_flags()`]
     fn set_zero_and_negative_flags_by(&mut self, value: u8) {
         self.register_p.set(CpuStatus::ZERO, value == 0);
         self.register_p

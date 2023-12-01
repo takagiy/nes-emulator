@@ -755,6 +755,18 @@ impl Cpu {
         }
     }
 
+    /// Compare two values and set the flags accordingly.
+    ///
+    /// - CARRY: Set if `lhs >= rhs`.
+    /// - ZERO: Set if `lhs == rhs`.
+    /// - NEGATIVE: Set if 7th bit of `lhs - rhs` is set.
+    fn compare(&mut self, lhs: u8, rhs: u8) {
+        let (result, overflow) = lhs.overflowing_sub(rhs);
+
+        self.register_p.set(CpuStatus::CARRY, !overflow);
+        self.set_zero_and_negative_flags_by(result);
+    }
+
     /// Set the zero and negative flags based on the value of the accumulator.
     ///
     /// - ZERO: Set if the accumulator is zero.
